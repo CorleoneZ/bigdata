@@ -1,11 +1,9 @@
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * -------string--------
@@ -76,14 +74,15 @@ public class RedisMigrate {
 
         // print all type keys after transform
         for (String key : map_keyTrans.keySet()) {
-            System.out.println("key = " + key);
+            jedis_ppe.set(key, map_keyTrans.get(key));
+            jedis_local.set(key, map_keyTrans.get(key));
         }
-        System.out.println(map_keyTrans.size());
 
-        // save all data into local redis server
+        // save all com.jpa.data into local redis server
         for (String key : map.keySet()) {
             jedis_local.set(key, map.get(key));
         }
+        System.out.println(map.size());
     }
 
     @Test
@@ -103,14 +102,19 @@ public class RedisMigrate {
         }
 
         for (String key : map_keyTrans.keySet()) {
-            System.out.println("key = " + key);
+            for (String valueStr : map_keyTrans.get(key)) {
+                jedis_local.sadd(key,valueStr);
+                jedis_ppe.sadd(key,valueStr);
+                //System.out.println("single value: " + valueStr);
+            }
+            //System.out.println("key = " + key);
         }
         System.out.println(map_keyTrans.size());
 
         for (String key : map.keySet()) {
             for (String valueStr : map.get(key)) {
                 jedis_local.sadd(key,valueStr);
-                System.out.println("single value: " + valueStr);
+                //System.out.println("single value: " + valueStr);
             }
         }
     }
@@ -122,13 +126,13 @@ public class RedisMigrate {
         Set<String> keys2 = jedis_ppe.keys("fht:workflow:*:contactIds");
         System.out.println("key openIds size: " + keys1.size() + "   key contactIds size: " + keys2.size());
 
-        Map<String,Map<String,String>> map = new HashMap<>();
-        Map<String,Map<String,String>> map_keyTrans = new HashMap<>();
+        Map<String, Map<String, String>> map = new HashMap<>();
+        Map<String, Map<String, String>> map_keyTrans = new HashMap<>();
 
         allKeys.addAll(keys1);
         allKeys.addAll(keys2);
         for (String key : allKeys) {
-            Map<String,String> value = jedis_ppe.hgetAll(key);
+            Map<String, String> value = jedis_ppe.hgetAll(key);
             map.put(key, value);
 
             String keyTrans = transform(key);
@@ -136,8 +140,10 @@ public class RedisMigrate {
         }
 
         for (String key : map_keyTrans.keySet()) {
-            System.out.println("key = " + key);
-            System.out.println(map_keyTrans.get(key));
+            /*System.out.println("key = " + key);
+            System.out.println(map_keyTrans.get(key));*/
+            jedis_local.hmset(key, map_keyTrans.get(key));
+            jedis_ppe.hmset(key, map_keyTrans.get(key));
         }
         System.out.println(map_keyTrans.size());
 

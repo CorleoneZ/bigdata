@@ -11,7 +11,7 @@ object Spark02_WordCount {
     val sc = new SparkContext(sparkConf)
 
     // TODO 执行业务操作
-    val lines : RDD[String] = sc.textFile("data")
+    val lines : RDD[String] = sc.textFile("com.jpa.data")
     val words : RDD[String] = lines.flatMap(_.split(" "))
 
     val wordToOne = words.map(

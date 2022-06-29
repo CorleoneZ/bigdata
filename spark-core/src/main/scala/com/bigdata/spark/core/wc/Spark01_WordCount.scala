@@ -25,7 +25,7 @@ object Spark01_WordCount {
      * 4.aggregation transform
      * 5.print result
      */
-    val lines : RDD[String] = sc.textFile("data")
+    val lines : RDD[String] = sc.textFile("com.jpa.data")
     val words : RDD[String] = lines.flatMap(_.split(" "))
     val wordGroup : RDD[(String, Iterable[String])] = words.groupBy(word=>word)
 
