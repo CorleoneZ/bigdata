@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import javax.persistence.criteria.*;
+import java.util.Iterator;
 import java.util.List;
 
 //CriteriaBuilder.In<String> in = criteriaBuilder.in(userId);
@@ -27,16 +28,18 @@ public class Spec {
             public Predicate toPredicate(Root<WechatUser> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 Path<String> openId = root.get("openId");
                 Path<Integer> languageId = root.get("languageId");
-                Path<String> userId = root.get("userId");
+                //Path<String> userId = root.get("")
 
                 Predicate p1 = criteriaBuilder.equal(openId,"1");
-                Predicate p2 = criteriaBuilder.greaterThan(languageId,4);
+                Predicate p2 = criteriaBuilder.equal(languageId,1);
+                Predicate back = criteriaBuilder.or(p1,p2);
 
-                Predicate r = criteriaBuilder.or(p1,p2);
-                return r;
+                return back;
             }
-
         });
-        System.out.println(list);
+        Iterator it1 = list.iterator();
+        while(it1.hasNext()){
+            System.out.println(it1.next());
+        }
     }
 }

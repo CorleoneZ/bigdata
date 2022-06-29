@@ -70,7 +70,7 @@ public class NewFeature {
 
     }
 
-    static String formatterPatternSwitch(Object o) {
+    /*static String formatterPatternSwitch(Object o) {
         return switch (o) {
             case Integer i -> String.format("int %d", i);
             case Long l    -> String.format("long %d", l);
@@ -87,19 +87,24 @@ public class NewFeature {
             case Integer i -> System.out.println("Integer");
             default  -> System.out.println("default");
         }
-    }
+    }*/
 
 
     static void testVar(int score){
-        var res = switch (score) {   //增强版switch语法
+        var str = "string";
+        var i = 10;
+        System.out.println(str);
+        System.out.println(i);
+
+        /*var res = switch (score) {
             case  90 -> "优秀";
 
             default -> {   //我们可以使用花括号来将整套逻辑括起来
-                //... 我是其他要做的事情
-                yield  "不及格";  //注意处理完成后需要返回最终结果，但是这样并不是使用return，而是yield关键字
+                //TODO
+                yield  "不及格";  //处理完成后需要返回最终结果，但是这样并不是使用return，而是yield关键字
             }
         };
-        System.out.println(res);
+        System.out.println(res);*/
     }
 
     /**
@@ -131,14 +136,11 @@ public class NewFeature {
 
         //switchFeature(APPLE);
 
-        testVar(90);
+        //testVar(90);
 
         //nullPointerExceptions();
 
         //HttpClient();
-
-        var s = "hello world!";
-        var i = 1;
 
     }
 

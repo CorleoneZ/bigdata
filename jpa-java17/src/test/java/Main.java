@@ -36,7 +36,7 @@ public class Main {
         wechatUserRepo.save(user);*/
     }
 
- /*   @Test
+    /*@Test
     public void query() {
         List<WechatUser> users = wechatUserRepo.findByPlatIdOrUserId("1","2");
         System.out.println(users);
