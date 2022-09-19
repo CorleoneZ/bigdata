@@ -8,3 +8,12 @@ CREATE TABLE iparllay.fht_scrm_event_source(`msg` String)ENGINE = Kafka SETTINGS
 CREATE TABLE iparllay.event_test(`event_time` String)ENGINE = MergeTree
 CREATE TABLE iparllay.event_test_source(`msg` String)ENGINE = Kafka SETTINGS kafka_broker_list = '10.11.40.202:9092', kafka_topic_list = 'wechatEvent', kafka_group_name = 'test-event8', kafka_format = 'JSONAsString'
 CREATE MATERIALIZED VIEW iparllay.event_test_source_consumer TO iparllay.event_test(`event_time` String) AS SELECT JSONExtractString(msg, 'createTimeMS') AS event_time FROM iparllay.event_test_source
+
+
+Hibernate: select wechatuser0_.plat_id as plat_id1_0_, wechatuser0_.gender as gender2_0_, wechatuser0_.head_image_url as head_ima3_0_, wechatuser0_.language_id as language4_0_, wechatuser0_.nickname as nickname5_0_, wechatuser0_.open_id as open_id6_0_, wechatuser0_.user_id as user_id7_0_ from wechat_user wechatuser0_ where wechatuser0_.open_id=?
+WechatUser(platId=12, userId=12, openId=12, nickname=12, gender=12, languageId=12, headImageUrl=12)
+2022-06-29 17:39:59.083  INFO 20945 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'persistenceUnit'
+2022-06-29 17:39:59.083  INFO 20945 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-06-29 17:39:59.086  INFO 20945 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+Process finished with exit code 0

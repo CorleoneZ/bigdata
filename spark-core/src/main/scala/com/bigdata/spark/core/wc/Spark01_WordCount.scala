@@ -11,7 +11,7 @@ counts.collect
 object Spark01_WordCount {
   def main(args: Array[String]): Unit = {
 
-    //application   spark框架
+    //application spark framework
 
     // TODO 建立和spark框架连接
     val sparkConf = new SparkConf().setMaster("local").setAppName("WordCount")
@@ -25,7 +25,7 @@ object Spark01_WordCount {
      * 4.aggregation transform
      * 5.print result
      */
-    val lines : RDD[String] = sc.textFile("com.jpa.data")
+    val lines : RDD[String] = sc.textFile("data")
     val words : RDD[String] = lines.flatMap(_.split(" "))
     val wordGroup : RDD[(String, Iterable[String])] = words.groupBy(word=>word)
 

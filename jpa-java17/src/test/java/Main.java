@@ -1,5 +1,7 @@
 import com.Application;
+import com.jpa.data.entity.ScrmEvent;
 import com.jpa.data.entity.WechatUser;
+import com.jpa.data.repo.EventRepo;
 import com.jpa.data.repo.WechatUserRepo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +22,9 @@ public class Main {
     @Resource
     private WechatUserRepo wechatUserRepo;
 
+    @Resource
+    private EventRepo eventRepo;
+
     @Test
     public void testTableCount() {
         long count = wechatUserRepo.count();
@@ -28,36 +33,23 @@ public class Main {
 
     @Test
     public void createAndSaveWechatUser() {
-        /*for (int i = 10; i < 20; i++) {
-            WechatUser user = new WechatUser("" + i + "","" + i + "","" + i + "","" + i + "","" + i + "",i,"" + i + "");
-            wechatUserRepo.save(user);
-        }*/
-        /*WechatUser user = new WechatUser("2","2","2","2","2",1,"2");
-        wechatUserRepo.save(user);*/
+        /*WechatUser user = WechatUser.builder()
+                .openId("001").nickname("sam").build();
+        WechatUser user2 = WechatUser.builder()
+                .openId("002").nickname("jack").build();*/
+
+        ScrmEvent event1 = ScrmEvent.builder()
+                .eventId("1").openId("001").eventSource("wechat").build();
+        ScrmEvent event2 = ScrmEvent.builder()
+                .eventId("2").openId("002").eventSource("scene").build();
+        eventRepo.save(event1);
+        eventRepo.save(event2);
     }
 
-    /*@Test
+    @Test
     public void query() {
-        List<WechatUser> users = wechatUserRepo.findByPlatIdOrUserId("1","2");
-        System.out.println(users);
-    }*/
+        WechatUser user = wechatUserRepo.findByOpenId("12");
+        System.out.println(user);
 
-    @Test
-    public void testPaging() {
-        Page<WechatUser> all = wechatUserRepo.findAll(PageRequest.of(0,2));
-        System.out.println(all.getTotalPages());
-    }
-
-    @Test
-    public void testSort() {
-        Sort sort = Sort.by("languageId").descending();
-        Iterable<WechatUser> all = wechatUserRepo.findAll(sort);
-        System.out.println(all);
-    }
-
-    @Test
-    public void testJPQL() {
-        List<WechatUser> list = wechatUserRepo.findAll();
-        System.out.println(list);
     }
 }

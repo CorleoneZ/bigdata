@@ -1,4 +1,5 @@
 import com.Application;
+import com.jpa.data.entity.QScrmEvent;
 import com.jpa.data.entity.QWechatUser;
 import com.jpa.data.entity.WechatUser;
 import com.jpa.data.repo.QueryRepo;
@@ -14,6 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
 import java.util.Iterator;
 
 @RunWith(SpringRunner.class)
@@ -26,7 +29,7 @@ public class Query {
     @PersistenceContext
     EntityManager entityManager;
 
-    @Test
+    /*@Test
     public void selectAllNameList() {
         QWechatUser wechatUser = QWechatUser.wechatUser;
 
@@ -36,22 +39,24 @@ public class Query {
             System.out.println(it1.next());
         }
 
-    }
+    }*/
 
     @Test
     public void test() {
         JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
-        QWechatUser wechatUser = QWechatUser.wechatUser;
+        QWechatUser user = QWechatUser.wechatUser;
+        QScrmEvent event = QScrmEvent.scrmEvent;
 
-        QueryResults<Tuple> tupleQueryResults = queryFactory.from(wechatUser)
-                .select(wechatUser.languageId.sum(), wechatUser.languageId)
-                .where(wechatUser.languageId.between(1,10))
-                .orderBy(wechatUser.languageId.desc())
-                .groupBy(wechatUser.languageId)
+        QueryResults<Tuple> tupleQueryResults = queryFactory.from(user).join(event).on(user.openId.eq(event.openId))
+                .select(user.openId,user.nickname)
+                .where(user.nickname.containsIgnoreCase("sa").and(null))
+                .orderBy(user.openId.desc())
                 .fetchResults();
 
+        System.out.println("tupleQueryResults size: " + tupleQueryResults.getTotal());
         for (Tuple t : tupleQueryResults.getResults()) {
-            System.out.println(t);
+            System.out.println("result: " + t);
         }
+
     }
 }

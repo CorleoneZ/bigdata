@@ -96,7 +96,7 @@ public class NewFeature {
         System.out.println(str);
         System.out.println(i);
 
-        /*var res = switch (score) {
+        var res = switch (score) {
             case  90 -> "优秀";
 
             default -> {   //我们可以使用花括号来将整套逻辑括起来
@@ -104,7 +104,7 @@ public class NewFeature {
                 yield  "不及格";  //处理完成后需要返回最终结果，但是这样并不是使用return，而是yield关键字
             }
         };
-        System.out.println(res);*/
+        System.out.println(res);
     }
 
     /**
@@ -140,7 +140,7 @@ public class NewFeature {
 
         //nullPointerExceptions();
 
-        //HttpClient();
+        HttpClient();
 
     }
 

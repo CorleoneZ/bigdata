@@ -32,7 +32,8 @@ public class Spec {
 
                 Predicate p1 = criteriaBuilder.equal(openId,"1");
                 Predicate p2 = criteriaBuilder.equal(languageId,1);
-                Predicate back = criteriaBuilder.or(p1,p2);
+
+                Predicate back = criteriaBuilder.and(p1,p2);
 
                 return back;
             }

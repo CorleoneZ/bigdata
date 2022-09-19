@@ -3,13 +3,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+
 public class UserInfo {
 
-    private String openId;
+    /*private String openId;
 
     private String gender;
 
@@ -21,5 +18,5 @@ public class UserInfo {
 
     private String headImageUrl;
 
-    private String language;
+    private String language;*/
 }

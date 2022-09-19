@@ -14,11 +14,16 @@ com/jpa/data/entity/QWechatUser.class
 com/Application.class
 newFeature/Comet.class
 newFeature/recordCase/UserInfo.class
+com/jpa/data/entity/ScrmEvent.class
 newFeature/Planet.class
 com/jpa/data/entity/WechatUser.class
+com/jpa/data/entity/QScrmEvent.class
 newFeature/Lambda.class
 newFeature/Expr.class
+com/jpa/data/repo/EventRepo.class
 newFeature/Fruit.class
 newFeature/recordCase/WechatEvent.class
+com/jpa/data/entity/ScrmEvent$ScrmEventBuilder.class
 newFeature/Celestial.class
+com/jpa/data/entity/WechatUser$WechatUserBuilder.class
 newFeature/ConstantExpr.class

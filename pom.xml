@@ -15,7 +15,6 @@
         <module>kafka</module>
         <module>redis</module>
         <module>jpa-java17</module>
-        <module>es2clickhouse</module>
     </modules>
 
     <properties>

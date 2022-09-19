@@ -12,9 +12,11 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Repository
-public interface WechatUserRepo extends PagingAndSortingRepository<WechatUser, String> {
+public interface WechatUserRepo extends CrudRepository<WechatUser,String> {
 
-    @Query(value = "select w from WechatUser w")
+    @Query(value = "select w from WechatUser w", nativeQuery = true)
     List<WechatUser> findAll();
+
+    WechatUser findByOpenId(String openId);
 
 }
